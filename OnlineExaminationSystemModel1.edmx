@@ -1,0 +1,833 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OnlineExaminationSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblClass">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblfinalResult">
+          <Key>
+            <PropertyRef Name="ResultID" />
+          </Key>
+          <Property Name="ResultID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Score" Type="int" Nullable="false" />
+          <Property Name="SubjctName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserFirstName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="UserLastName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblLogin">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Pasword" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailAdress" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClassID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblQuestion">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Questions" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="opt1" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="opt2" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="opt3" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="opt4" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Answer" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="classID" Type="int" />
+          <Property Name="SubjectID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblSubject">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassID" Type="int" />
+        </EntityType>
+        <Association Name="FK_tblLogin_tblClass">
+          <End Role="tblClass" Type="Self.tblClass" Multiplicity="0..1" />
+          <End Role="tblLogin" Type="Self.tblLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClass">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="tblLogin">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblQuestion_tblClass">
+          <End Role="tblClass" Type="Self.tblClass" Multiplicity="0..1" />
+          <End Role="tblQuestion" Type="Self.tblQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClass">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="tblQuestion">
+              <PropertyRef Name="classID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblQuestion_tblSubject">
+          <End Role="tblSubject" Type="Self.tblSubject" Multiplicity="0..1" />
+          <End Role="tblQuestion" Type="Self.tblQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSubject">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="tblQuestion">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSubject_tblClass">
+          <End Role="tblClass" Type="Self.tblClass" Multiplicity="0..1" />
+          <End Role="tblSubject" Type="Self.tblSubject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClass">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="tblSubject">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="aminlogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ddlSubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="DeleteClass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="classId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="deleteQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="deletesubj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SubjectID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="deleteSubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SubjectID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DoSignUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getClass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getSbjs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetSubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getUserName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loginId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="QuestionPaper" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Questions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="removeClass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="classId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SearchClass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="className" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Searchsubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="subjectName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Searchsubjectpaper" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="subjectName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SPLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spQuestions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="stdsubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="subjctID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="OnlineExaminationSystemModelStoreContainer">
+          <EntitySet Name="tblClass" EntityType="Self.tblClass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblfinalResult" EntityType="Self.tblfinalResult" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLogin" EntityType="Self.tblLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblQuestion" EntityType="Self.tblQuestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSubject" EntityType="Self.tblSubject" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblLogin_tblClass" Association="Self.FK_tblLogin_tblClass">
+            <End Role="tblClass" EntitySet="tblClass" />
+            <End Role="tblLogin" EntitySet="tblLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblQuestion_tblClass" Association="Self.FK_tblQuestion_tblClass">
+            <End Role="tblClass" EntitySet="tblClass" />
+            <End Role="tblQuestion" EntitySet="tblQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblQuestion_tblSubject" Association="Self.FK_tblQuestion_tblSubject">
+            <End Role="tblSubject" EntitySet="tblSubject" />
+            <End Role="tblQuestion" EntitySet="tblQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSubject_tblClass" Association="Self.FK_tblSubject_tblClass">
+            <End Role="tblClass" EntitySet="tblClass" />
+            <End Role="tblSubject" EntitySet="tblSubject" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnlineExaminationSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblClass">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblLogins" Relationship="Self.FK_tblLogin_tblClass" FromRole="tblClass" ToRole="tblLogin" />
+          <NavigationProperty Name="tblSubjects" Relationship="OnlineExaminationSystemModel.FK_tblSubject_tblClass" FromRole="tblClass" ToRole="tblSubject" />
+          <NavigationProperty Name="tblQuestions" Relationship="OnlineExaminationSystemModel.FK_tblQuestion_tblClass" FromRole="tblClass" ToRole="tblQuestion1" />
+        </EntityType>
+        <EntityType Name="tblLogin">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pasword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailAdress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClassID" Type="Int32" />
+          <NavigationProperty Name="tblClass" Relationship="Self.FK_tblLogin_tblClass" FromRole="tblLogin" ToRole="tblClass" />
+        </EntityType>
+        <Association Name="FK_tblLogin_tblClass">
+          <End Role="tblClass" Type="Self.tblClass" Multiplicity="0..1" />
+          <End Role="tblLogin" Type="Self.tblLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClass">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="tblLogin">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnlineExaminationSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblClasses" EntityType="Self.tblClass" />
+          <EntitySet Name="tblLogins" EntityType="Self.tblLogin" />
+          <AssociationSet Name="FK_tblLogin_tblClass" Association="Self.FK_tblLogin_tblClass">
+            <End Role="tblClass" EntitySet="tblClasses" />
+            <End Role="tblLogin" EntitySet="tblLogins" />
+          </AssociationSet>
+          <FunctionImport Name="deleteQuestion">
+          <Parameter Name="questionID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DoSignUP" ReturnType="Collection(OnlineExaminationSystemModel.DoSignUP_Result)" />
+          <FunctionImport Name="GetSubj" ReturnType="Collection(String)" />
+          <FunctionImport Name="Login" ReturnType="Collection(OnlineExaminationSystemModel.Login_Result)" />
+          <FunctionImport Name="SPLogin" ReturnType="Collection(OnlineExaminationSystemModel.SPLogin_Result)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getClass" ReturnType="Collection(OnlineExaminationSystemModel.getClass_Result)" />
+          <FunctionImport Name="DeleteClass">
+          <Parameter Name="ClassID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="deleClass">
+          <Parameter Name="ClassID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tblSubjects" EntityType="OnlineExaminationSystemModel.tblSubject" />
+          <AssociationSet Name="FK_tblSubject_tblClass" Association="OnlineExaminationSystemModel.FK_tblSubject_tblClass">
+            <End Role="tblClass" EntitySet="tblClasses" />
+            <End Role="tblSubject" EntitySet="tblSubjects" />
+          </AssociationSet>
+          <FunctionImport Name="GetSubject" ReturnType="Collection(OnlineExaminationSystemModel.GetSubject_Result)" />
+          <FunctionImport Name="SearchClass" ReturnType="Collection(OnlineExaminationSystemModel.SearchClass_Result)">
+          <Parameter Name="className" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="deleteSubject" ReturnType="Collection(OnlineExaminationSystemModel.deleteSubject_Result)">
+          <Parameter Name="SubjectID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="deletesubj">
+          <Parameter Name="SubjectID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tblQuestions" EntityType="OnlineExaminationSystemModel.tblQuestion" />
+          <AssociationSet Name="FK_tblQuestion_tblClass" Association="OnlineExaminationSystemModel.FK_tblQuestion_tblClass">
+            <End Role="tblClass" EntitySet="tblClasses" />
+            <End Role="tblQuestion1" EntitySet="tblQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblQuestion_tblSubject" Association="OnlineExaminationSystemModel.FK_tblQuestion_tblSubject">
+            <End Role="tblSubject" EntitySet="tblSubjects" />
+            <End Role="tblQuestion1" EntitySet="tblQuestions" />
+          </AssociationSet>
+          <FunctionImport Name="spQuestions" />
+          <FunctionImport Name="Questions" ReturnType="Collection(OnlineExaminationSystemModel.Questions_Result)" />
+          <FunctionImport Name="ddlSubject" ReturnType="Collection(OnlineExaminationSystemModel.ddlSubject_Result)" />
+          <FunctionImport Name="spSubject" ReturnType="Collection(OnlineExaminationSystemModel.spSubject_Result)" />
+          <FunctionImport Name="DeleteClass1">
+          <Parameter Name="classId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="removeClass">
+          <Parameter Name="classId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stdsubject" ReturnType="Collection(String)">
+          <Parameter Name="subjctID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getSbjs" ReturnType="Collection(OnlineExaminationSystemModel.getSbjs_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="QuestionPaper" ReturnType="Collection(OnlineExaminationSystemModel.QuestionPaper_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getUserName" ReturnType="Collection(OnlineExaminationSystemModel.getUserName_Result)">
+          <Parameter Name="loginId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tblfinalResults" EntityType="OnlineExaminationSystemModel.tblfinalResult" />
+          <FunctionImport Name="getResult" ReturnType="Collection(OnlineExaminationSystemModel.getResult_Result)" />
+          <FunctionImport Name="aminlogin" ReturnType="Collection(OnlineExaminationSystemModel.aminlogin_Result)" />
+          <FunctionImport Name="Searchsubject" ReturnType="Collection(OnlineExaminationSystemModel.Searchsubject_Result)">
+          <Parameter Name="subjectName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Searchsubjectpaper" ReturnType="Collection(OnlineExaminationSystemModel.Searchsubjectpaper_Result)">
+            <Parameter Name="subjectName" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="DoSignUP_Result">
+          <Property Type="Int32" Name="LoginID" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Pasword" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="EmailAdress" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="ClassID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Login_Result">
+          <Property Type="Int32" Name="LoginID" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Pasword" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="EmailAdress" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="ClassID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SPLogin_Result">
+          <Property Type="Int32" Name="LoginID" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Pasword" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="EmailAdress" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="ClassID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spQuestions_Result">
+          <Property Type="Int32" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="subj" Nullable="false" />
+          <Property Type="String" Name="Questions" Nullable="false" />
+          <Property Type="String" Name="opt1" Nullable="false" />
+          <Property Type="String" Name="opt2" Nullable="false" />
+          <Property Type="String" Name="opt3" Nullable="false" />
+          <Property Type="String" Name="opt4" Nullable="false" />
+          <Property Type="String" Name="Ans" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getClass_Result">
+          <Property Type="Int32" Name="ClassID" Nullable="false" />
+          <Property Type="String" Name="ClassName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="tblSubject">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClassID" Type="Int32" />
+          <NavigationProperty Name="tblClass" Relationship="OnlineExaminationSystemModel.FK_tblSubject_tblClass" FromRole="tblSubject" ToRole="tblClass" />
+          <NavigationProperty Name="tblQuestions" Relationship="OnlineExaminationSystemModel.FK_tblQuestion_tblSubject" FromRole="tblSubject" ToRole="tblQuestion1" />
+        </EntityType>
+        <Association Name="FK_tblSubject_tblClass">
+          <End Type="OnlineExaminationSystemModel.tblClass" Role="tblClass" Multiplicity="0..1" />
+          <End Type="OnlineExaminationSystemModel.tblSubject" Role="tblSubject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClass">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="tblSubject">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetSubject_Result">
+          <Property Type="Int32" Name="SubjectID" Nullable="false" />
+          <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ClassID" Nullable="false" />
+          <Property Type="String" Name="ClassName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SearchClass_Result">
+          <Property Type="Int32" Name="ClassID" Nullable="false" />
+          <Property Type="String" Name="ClassName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="deleteSubject_Result">
+          <Property Type="Int32" Name="SubjectID" Nullable="false" />
+          <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ClassID" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="tblQuestion">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Questions" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="opt1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="opt2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="opt3" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="opt4" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="classID" Type="Int32" />
+          <Property Name="SubjectID" Type="Int32" />
+          <NavigationProperty Name="tblClass" Relationship="OnlineExaminationSystemModel.FK_tblQuestion_tblClass" FromRole="tblQuestion1" ToRole="tblClass" />
+          <NavigationProperty Name="tblSubject" Relationship="OnlineExaminationSystemModel.FK_tblQuestion_tblSubject" FromRole="tblQuestion1" ToRole="tblSubject" />
+        </EntityType>
+        <ComplexType Name="GetQuestions_Result">
+          <Property Type="Int32" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="Questions" Nullable="false" />
+          <Property Type="String" Name="opt1" Nullable="false" />
+          <Property Type="String" Name="opt2" Nullable="false" />
+          <Property Type="String" Name="opt3" Nullable="false" />
+          <Property Type="String" Name="opt4" Nullable="false" />
+          <Property Type="Int32" Name="classID" Nullable="true" />
+          <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SubjectID" Nullable="true" />
+          <Property Type="String" Name="subjectName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Answer" Nullable="false" />
+        </ComplexType>
+        <Association Name="FK_tblQuestion_tblClass">
+          <End Type="OnlineExaminationSystemModel.tblClass" Role="tblClass" Multiplicity="0..1" />
+          <End Type="OnlineExaminationSystemModel.tblQuestion" Role="tblQuestion1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClass">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="tblQuestion1">
+              <PropertyRef Name="classID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblQuestion_tblSubject">
+          <End Type="OnlineExaminationSystemModel.tblSubject" Role="tblSubject" Multiplicity="0..1" />
+          <End Type="OnlineExaminationSystemModel.tblQuestion" Role="tblQuestion1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSubject">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="tblQuestion1">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetQuestions_Result1">
+          <Property Type="Int32" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="Questions" Nullable="false" />
+          <Property Type="String" Name="opt1" Nullable="false" />
+          <Property Type="String" Name="opt2" Nullable="false" />
+          <Property Type="String" Name="opt3" Nullable="false" />
+          <Property Type="String" Name="opt4" Nullable="false" />
+          <Property Type="String" Name="Answer" Nullable="false" />
+          <Property Type="Int32" Name="classID" Nullable="true" />
+          <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SubjectID" Nullable="true" />
+          <Property Type="String" Name="subjectName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetQuestions_Result2">
+          <Property Type="Int32" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="Questions" Nullable="false" />
+          <Property Type="String" Name="opt1" Nullable="false" />
+          <Property Type="String" Name="opt2" Nullable="false" />
+          <Property Type="String" Name="opt3" Nullable="false" />
+          <Property Type="String" Name="opt4" Nullable="false" />
+          <Property Type="String" Name="Answer" Nullable="false" />
+          <Property Type="Int32" Name="classID" Nullable="true" />
+          <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SubjectID" Nullable="true" />
+          <Property Type="String" Name="subjectName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Questions_Result">
+          <Property Type="Int32" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="Questions" Nullable="false" />
+          <Property Type="String" Name="opt1" Nullable="false" />
+          <Property Type="String" Name="opt2" Nullable="false" />
+          <Property Type="String" Name="opt3" Nullable="false" />
+          <Property Type="String" Name="opt4" Nullable="false" />
+          <Property Type="String" Name="Answer" Nullable="false" />
+          <Property Type="Int32" Name="classID" Nullable="true" />
+          <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SubjectID" Nullable="true" />
+          <Property Type="String" Name="subjectName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ddlSubject_Result">
+          <Property Type="Int32" Name="SubjectID" Nullable="false" />
+          <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ClassID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spSubject_Result">
+          <Property Type="Int32" Name="SubjectID" Nullable="false" />
+          <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getSbjs_Result">
+          <Property Type="Int32" Name="SubjectID" Nullable="false" />
+          <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ClassID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="QuestionPaper_Result">
+          <Property Type="Int32" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="Questions" Nullable="false" />
+          <Property Type="String" Name="opt1" Nullable="false" />
+          <Property Type="String" Name="opt2" Nullable="false" />
+          <Property Type="String" Name="opt3" Nullable="false" />
+          <Property Type="String" Name="opt4" Nullable="false" />
+          <Property Type="String" Name="Answer" Nullable="false" />
+          <Property Type="Int32" Name="classID" Nullable="true" />
+          <Property Type="Int32" Name="SubjectID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="getUserName_Result">
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="25" />
+        </ComplexType>
+        <EntityType Name="tblfinalResult">
+          <Key>
+            <PropertyRef Name="ResultID" />
+          </Key>
+          <Property Name="ResultID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <Property Name="SubjctName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserFirstName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="UserLastName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <ComplexType Name="getResult_Result">
+          <Property Type="Int32" Name="ResultID" Nullable="false" />
+          <Property Type="Int32" Name="Score" Nullable="false" />
+          <Property Type="String" Name="SubjctName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserFirstName" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="UserLastName" Nullable="false" MaxLength="25" />
+          <Property Type="DateTime" Name="Date" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="aminlogin_Result">
+          <Property Type="Int32" Name="LoginID" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Pasword" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="EmailAdress" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="ClassID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Searchsubject_Result">
+          <Property Type="Int32" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="Questions" Nullable="false" />
+          <Property Type="String" Name="opt1" Nullable="false" />
+          <Property Type="String" Name="opt2" Nullable="false" />
+          <Property Type="String" Name="opt3" Nullable="false" />
+          <Property Type="String" Name="opt4" Nullable="false" />
+          <Property Type="String" Name="Answer" Nullable="false" />
+          <Property Type="Int32" Name="classID" Nullable="true" />
+          <Property Type="Int32" Name="SubjectID" Nullable="true" />
+          <Property Type="Int32" Name="SubjectID1" Nullable="false" />
+          <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Searchsubjectpaper_Result">
+          <Property Type="Int32" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="Questions" Nullable="false" />
+          <Property Type="String" Name="opt1" Nullable="false" />
+          <Property Type="String" Name="opt2" Nullable="false" />
+          <Property Type="String" Name="opt3" Nullable="false" />
+          <Property Type="String" Name="opt4" Nullable="false" />
+          <Property Type="String" Name="Answer" Nullable="false" />
+          <Property Type="Int32" Name="classID" Nullable="true" />
+          <Property Type="Int32" Name="SubjectID" Nullable="true" />
+          <Property Type="Int32" Name="SubjectID1" Nullable="false" />
+          <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnlineExaminationSystemModelStoreContainer" CdmEntityContainer="OnlineExaminationSystemEntities">
+          <EntitySetMapping Name="tblClasses">
+            <EntityTypeMapping TypeName="OnlineExaminationSystemModel.tblClass">
+              <MappingFragment StoreEntitySet="tblClass">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLogins">
+            <EntityTypeMapping TypeName="OnlineExaminationSystemModel.tblLogin">
+              <MappingFragment StoreEntitySet="tblLogin">
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Pasword" ColumnName="Pasword" />
+                <ScalarProperty Name="EmailAdress" ColumnName="EmailAdress" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="deleteQuestion" FunctionName="OnlineExaminationSystemModel.Store.deleteQuestion" />
+          <FunctionImportMapping FunctionImportName="DoSignUP" FunctionName="OnlineExaminationSystemModel.Store.DoSignUP">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.DoSignUP_Result">
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Pasword" ColumnName="Pasword" />
+                <ScalarProperty Name="EmailAdress" ColumnName="EmailAdress" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Login" FunctionName="OnlineExaminationSystemModel.Store.Login">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.Login_Result">
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Pasword" ColumnName="Pasword" />
+                <ScalarProperty Name="EmailAdress" ColumnName="EmailAdress" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SPLogin" FunctionName="OnlineExaminationSystemModel.Store.SPLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.SPLogin_Result">
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Pasword" ColumnName="Pasword" />
+                <ScalarProperty Name="EmailAdress" ColumnName="EmailAdress" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getClass" FunctionName="OnlineExaminationSystemModel.Store.getClass">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.getClass_Result">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tblSubjects">
+            <EntityTypeMapping TypeName="OnlineExaminationSystemModel.tblSubject">
+              <MappingFragment StoreEntitySet="tblSubject">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetSubject" FunctionName="OnlineExaminationSystemModel.Store.GetSubject">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.GetSubject_Result">
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SearchClass" FunctionName="OnlineExaminationSystemModel.Store.SearchClass">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.SearchClass_Result">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="deleteSubject" FunctionName="OnlineExaminationSystemModel.Store.deleteSubject">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.deleteSubject_Result">
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="deletesubj" FunctionName="OnlineExaminationSystemModel.Store.deletesubj" />
+          <EntitySetMapping Name="tblQuestions">
+            <EntityTypeMapping TypeName="OnlineExaminationSystemModel.tblQuestion">
+              <MappingFragment StoreEntitySet="tblQuestion">
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="classID" ColumnName="classID" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="opt4" ColumnName="opt4" />
+                <ScalarProperty Name="opt3" ColumnName="opt3" />
+                <ScalarProperty Name="opt2" ColumnName="opt2" />
+                <ScalarProperty Name="opt1" ColumnName="opt1" />
+                <ScalarProperty Name="Questions" ColumnName="Questions" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spQuestions" FunctionName="OnlineExaminationSystemModel.Store.spQuestions" />
+          <FunctionImportMapping FunctionImportName="Questions" FunctionName="OnlineExaminationSystemModel.Store.Questions">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.Questions_Result">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Questions" ColumnName="Questions" />
+                <ScalarProperty Name="opt1" ColumnName="opt1" />
+                <ScalarProperty Name="opt2" ColumnName="opt2" />
+                <ScalarProperty Name="opt3" ColumnName="opt3" />
+                <ScalarProperty Name="opt4" ColumnName="opt4" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="classID" ColumnName="classID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ddlSubject" FunctionName="OnlineExaminationSystemModel.Store.ddlSubject">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.ddlSubject_Result">
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spSubject" FunctionName="OnlineExaminationSystemModel.Store.spSubject">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.spSubject_Result">
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeleteClass1" FunctionName="OnlineExaminationSystemModel.Store.DeleteClass" />
+          <FunctionImportMapping FunctionImportName="removeClass" FunctionName="OnlineExaminationSystemModel.Store.removeClass" />
+          <FunctionImportMapping FunctionImportName="stdsubject" FunctionName="OnlineExaminationSystemModel.Store.stdsubject" />
+          <FunctionImportMapping FunctionImportName="getSbjs" FunctionName="OnlineExaminationSystemModel.Store.getSbjs">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.getSbjs_Result">
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="QuestionPaper" FunctionName="OnlineExaminationSystemModel.Store.QuestionPaper">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.QuestionPaper_Result">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Questions" ColumnName="Questions" />
+                <ScalarProperty Name="opt1" ColumnName="opt1" />
+                <ScalarProperty Name="opt2" ColumnName="opt2" />
+                <ScalarProperty Name="opt3" ColumnName="opt3" />
+                <ScalarProperty Name="opt4" ColumnName="opt4" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="classID" ColumnName="classID" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getUserName" FunctionName="OnlineExaminationSystemModel.Store.getUserName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.getUserName_Result">
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tblfinalResults">
+            <EntityTypeMapping TypeName="OnlineExaminationSystemModel.tblfinalResult">
+              <MappingFragment StoreEntitySet="tblfinalResult">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+                <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+                <ScalarProperty Name="SubjctName" ColumnName="SubjctName" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="ResultID" ColumnName="ResultID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="getResult" FunctionName="OnlineExaminationSystemModel.Store.getResult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.getResult_Result">
+                <ScalarProperty Name="ResultID" ColumnName="ResultID" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="SubjctName" ColumnName="SubjctName" />
+                <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="aminlogin" FunctionName="OnlineExaminationSystemModel.Store.aminlogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.aminlogin_Result">
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Pasword" ColumnName="Pasword" />
+                <ScalarProperty Name="EmailAdress" ColumnName="EmailAdress" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Searchsubject" FunctionName="OnlineExaminationSystemModel.Store.Searchsubject">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.Searchsubject_Result">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Questions" ColumnName="Questions" />
+                <ScalarProperty Name="opt1" ColumnName="opt1" />
+                <ScalarProperty Name="opt2" ColumnName="opt2" />
+                <ScalarProperty Name="opt3" ColumnName="opt3" />
+                <ScalarProperty Name="opt4" ColumnName="opt4" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="classID" ColumnName="classID" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="SubjectID1" ColumnName="SubjectID1" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Searchsubjectpaper" FunctionName="OnlineExaminationSystemModel.Store.Searchsubjectpaper">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.Searchsubjectpaper_Result">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Questions" ColumnName="Questions" />
+                <ScalarProperty Name="opt1" ColumnName="opt1" />
+                <ScalarProperty Name="opt2" ColumnName="opt2" />
+                <ScalarProperty Name="opt3" ColumnName="opt3" />
+                <ScalarProperty Name="opt4" ColumnName="opt4" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="classID" ColumnName="classID" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="SubjectID1" ColumnName="SubjectID1" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OnlineExaminationSystemModelStoreContainer" CdmEntityContainer="OnlineExaminationSystemEntities">
+    <EntitySetMapping Name="tblClasses">
+      <EntityTypeMapping TypeName="OnlineExaminationSystemModel.tblClass">
+        <MappingFragment StoreEntitySet="tblClass">
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblLogins">
+      <EntityTypeMapping TypeName="OnlineExaminationSystemModel.tblLogin">
+        <MappingFragment StoreEntitySet="tblLogin">
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Pasword" ColumnName="Pasword" />
+          <ScalarProperty Name="EmailAdress" ColumnName="EmailAdress" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="deleteQuestion" FunctionName="OnlineExaminationSystemModel.Store.deleteQuestion" />
+    <FunctionImportMapping FunctionImportName="DoSignUP" FunctionName="OnlineExaminationSystemModel.Store.DoSignUP">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.DoSignUP_Result">
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Pasword" ColumnName="Pasword" />
+          <ScalarProperty Name="EmailAdress" ColumnName="EmailAdress" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Login" FunctionName="OnlineExaminationSystemModel.Store.Login">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.Login_Result">
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Pasword" ColumnName="Pasword" />
+          <ScalarProperty Name="EmailAdress" ColumnName="EmailAdress" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SPLogin" FunctionName="OnlineExaminationSystemModel.Store.SPLogin">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.SPLogin_Result">
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Pasword" ColumnName="Pasword" />
+          <ScalarProperty Name="EmailAdress" ColumnName="EmailAdress" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getClass" FunctionName="OnlineExaminationSystemModel.Store.getClass">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.getClass_Result">
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tblSubjects">
+      <EntityTypeMapping TypeName="OnlineExaminationSystemModel.tblSubject">
+        <MappingFragment StoreEntitySet="tblSubject">
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetSubject" FunctionName="OnlineExaminationSystemModel.Store.GetSubject">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.GetSubject_Result">
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SearchClass" FunctionName="OnlineExaminationSystemModel.Store.SearchClass">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.SearchClass_Result">
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="deleteSubject" FunctionName="OnlineExaminationSystemModel.Store.deleteSubject">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.deleteSubject_Result">
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="deletesubj" FunctionName="OnlineExaminationSystemModel.Store.deletesubj" />
+    <EntitySetMapping Name="tblQuestions">
+      <EntityTypeMapping TypeName="OnlineExaminationSystemModel.tblQuestion">
+        <MappingFragment StoreEntitySet="tblQuestion">
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="classID" ColumnName="classID" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="opt4" ColumnName="opt4" />
+          <ScalarProperty Name="opt3" ColumnName="opt3" />
+          <ScalarProperty Name="opt2" ColumnName="opt2" />
+          <ScalarProperty Name="opt1" ColumnName="opt1" />
+          <ScalarProperty Name="Questions" ColumnName="Questions" />
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spQuestions" FunctionName="OnlineExaminationSystemModel.Store.spQuestions" />
+    <FunctionImportMapping FunctionImportName="Questions" FunctionName="OnlineExaminationSystemModel.Store.Questions">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.Questions_Result">
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="Questions" ColumnName="Questions" />
+          <ScalarProperty Name="opt1" ColumnName="opt1" />
+          <ScalarProperty Name="opt2" ColumnName="opt2" />
+          <ScalarProperty Name="opt3" ColumnName="opt3" />
+          <ScalarProperty Name="opt4" ColumnName="opt4" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="classID" ColumnName="classID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ddlSubject" FunctionName="OnlineExaminationSystemModel.Store.ddlSubject">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.ddlSubject_Result">
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spSubject" FunctionName="OnlineExaminationSystemModel.Store.spSubject">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.spSubject_Result">
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DeleteClass1" FunctionName="OnlineExaminationSystemModel.Store.DeleteClass" />
+    <FunctionImportMapping FunctionImportName="removeClass" FunctionName="OnlineExaminationSystemModel.Store.removeClass" />
+    <FunctionImportMapping FunctionImportName="stdsubject" FunctionName="OnlineExaminationSystemModel.Store.stdsubject" />
+    <FunctionImportMapping FunctionImportName="getSbjs" FunctionName="OnlineExaminationSystemModel.Store.getSbjs">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.getSbjs_Result">
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="QuestionPaper" FunctionName="OnlineExaminationSystemModel.Store.QuestionPaper">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.QuestionPaper_Result">
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="Questions" ColumnName="Questions" />
+          <ScalarProperty Name="opt1" ColumnName="opt1" />
+          <ScalarProperty Name="opt2" ColumnName="opt2" />
+          <ScalarProperty Name="opt3" ColumnName="opt3" />
+          <ScalarProperty Name="opt4" ColumnName="opt4" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="classID" ColumnName="classID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getUserName" FunctionName="OnlineExaminationSystemModel.Store.getUserName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.getUserName_Result">
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tblfinalResults">
+      <EntityTypeMapping TypeName="OnlineExaminationSystemModel.tblfinalResult">
+        <MappingFragment StoreEntitySet="tblfinalResult">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+          <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+          <ScalarProperty Name="SubjctName" ColumnName="SubjctName" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="ResultID" ColumnName="ResultID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="getResult" FunctionName="OnlineExaminationSystemModel.Store.getResult">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.getResult_Result">
+          <ScalarProperty Name="ResultID" ColumnName="ResultID" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="SubjctName" ColumnName="SubjctName" />
+          <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+          <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="aminlogin" FunctionName="OnlineExaminationSystemModel.Store.aminlogin">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.aminlogin_Result">
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Pasword" ColumnName="Pasword" />
+          <ScalarProperty Name="EmailAdress" ColumnName="EmailAdress" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Searchsubject" FunctionName="OnlineExaminationSystemModel.Store.Searchsubject">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.Searchsubject_Result">
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="Questions" ColumnName="Questions" />
+          <ScalarProperty Name="opt1" ColumnName="opt1" />
+          <ScalarProperty Name="opt2" ColumnName="opt2" />
+          <ScalarProperty Name="opt3" ColumnName="opt3" />
+          <ScalarProperty Name="opt4" ColumnName="opt4" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="classID" ColumnName="classID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubjectID1" ColumnName="SubjectID1" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Searchsubjectpaper" FunctionName="OnlineExaminationSystemModel.Store.Searchsubjectpaper">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExaminationSystemModel.Searchsubjectpaper_Result">
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="Questions" ColumnName="Questions" />
+          <ScalarProperty Name="opt1" ColumnName="opt1" />
+          <ScalarProperty Name="opt2" ColumnName="opt2" />
+          <ScalarProperty Name="opt3" ColumnName="opt3" />
+          <ScalarProperty Name="opt4" ColumnName="opt4" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="classID" ColumnName="classID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubjectID1" ColumnName="SubjectID1" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

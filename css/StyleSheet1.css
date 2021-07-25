@@ -1,0 +1,62 @@
+﻿body {
+}
+.buttonstyle {
+    padding: 10px;
+    background-color: #0b203a;
+}
+div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+}
+.txtbox {
+    width: 100%;
+    BORDER-RIGHT: #ffba14 1px solid;
+    PADDING-RIGHT: 70px;
+    BORDER-TOP: #ffba14 1px solid;
+    PADDING-LEFT: 70px;
+    FONT-SIZE: 12pt;
+    PADDING-BOTTOM: 20px;
+    BORDER-LEFT: #ffba14 1px solid;
+    COLOR: #000080;
+    PADDING-TOP: 20px;
+    BORDER-BOTTOM: #ffba14 1px solid;
+    FONT-FAMILY: Tahoma;
+    BACKGROUND-COLOR: #ffffff;
+    margin-left: 60%;
+}
+
+div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+}
+
+.row {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.radiobutton {
+    margin-top: 20px;
+}
+#btn{
+    margin-left:50%;
+    float:left;
+    margin-top:10px;
+
+}
+.btn {
+    background-color: #00264d;
+    color: white;
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+    .btn:hover {
+        background-color: #009900;
+        color: white;
+        width: 150px;
+        margin-bottom: 10px;
+    }
+

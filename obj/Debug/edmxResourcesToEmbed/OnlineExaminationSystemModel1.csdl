@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OnlineExaminationSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblClass">
+    <Key>
+      <PropertyRef Name="ClassID" />
+    </Key>
+    <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="tblLogins" Relationship="Self.FK_tblLogin_tblClass" FromRole="tblClass" ToRole="tblLogin" />
+    <NavigationProperty Name="tblSubjects" Relationship="OnlineExaminationSystemModel.FK_tblSubject_tblClass" FromRole="tblClass" ToRole="tblSubject" />
+    <NavigationProperty Name="tblQuestions" Relationship="OnlineExaminationSystemModel.FK_tblQuestion_tblClass" FromRole="tblClass" ToRole="tblQuestion1" />
+  </EntityType>
+  <EntityType Name="tblLogin">
+    <Key>
+      <PropertyRef Name="LoginID" />
+    </Key>
+    <Property Name="LoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Pasword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmailAdress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ClassID" Type="Int32" />
+    <NavigationProperty Name="tblClass" Relationship="Self.FK_tblLogin_tblClass" FromRole="tblLogin" ToRole="tblClass" />
+  </EntityType>
+  <Association Name="FK_tblLogin_tblClass">
+    <End Role="tblClass" Type="Self.tblClass" Multiplicity="0..1" />
+    <End Role="tblLogin" Type="Self.tblLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblClass">
+        <PropertyRef Name="ClassID" />
+      </Principal>
+      <Dependent Role="tblLogin">
+        <PropertyRef Name="ClassID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OnlineExaminationSystemEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblClasses" EntityType="Self.tblClass" />
+    <EntitySet Name="tblLogins" EntityType="Self.tblLogin" />
+    <AssociationSet Name="FK_tblLogin_tblClass" Association="Self.FK_tblLogin_tblClass">
+      <End Role="tblClass" EntitySet="tblClasses" />
+      <End Role="tblLogin" EntitySet="tblLogins" />
+    </AssociationSet>
+    <FunctionImport Name="deleteQuestion">
+      <Parameter Name="questionID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DoSignUP" ReturnType="Collection(OnlineExaminationSystemModel.DoSignUP_Result)" />
+    <FunctionImport Name="GetSubj" ReturnType="Collection(String)" />
+    <FunctionImport Name="Login" ReturnType="Collection(OnlineExaminationSystemModel.Login_Result)" />
+    <FunctionImport Name="SPLogin" ReturnType="Collection(OnlineExaminationSystemModel.SPLogin_Result)">
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getClass" ReturnType="Collection(OnlineExaminationSystemModel.getClass_Result)" />
+    <FunctionImport Name="DeleteClass">
+      <Parameter Name="ClassID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="deleClass">
+      <Parameter Name="ClassID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="tblSubjects" EntityType="OnlineExaminationSystemModel.tblSubject" />
+    <AssociationSet Name="FK_tblSubject_tblClass" Association="OnlineExaminationSystemModel.FK_tblSubject_tblClass">
+      <End Role="tblClass" EntitySet="tblClasses" />
+      <End Role="tblSubject" EntitySet="tblSubjects" />
+    </AssociationSet>
+    <FunctionImport Name="GetSubject" ReturnType="Collection(OnlineExaminationSystemModel.GetSubject_Result)" />
+    <FunctionImport Name="SearchClass" ReturnType="Collection(OnlineExaminationSystemModel.SearchClass_Result)">
+      <Parameter Name="className" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="deleteSubject" ReturnType="Collection(OnlineExaminationSystemModel.deleteSubject_Result)">
+      <Parameter Name="SubjectID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="deletesubj">
+      <Parameter Name="SubjectID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="tblQuestions" EntityType="OnlineExaminationSystemModel.tblQuestion" />
+    <AssociationSet Name="FK_tblQuestion_tblClass" Association="OnlineExaminationSystemModel.FK_tblQuestion_tblClass">
+      <End Role="tblClass" EntitySet="tblClasses" />
+      <End Role="tblQuestion1" EntitySet="tblQuestions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblQuestion_tblSubject" Association="OnlineExaminationSystemModel.FK_tblQuestion_tblSubject">
+      <End Role="tblSubject" EntitySet="tblSubjects" />
+      <End Role="tblQuestion1" EntitySet="tblQuestions" />
+    </AssociationSet>
+    <FunctionImport Name="spQuestions" />
+    <FunctionImport Name="Questions" ReturnType="Collection(OnlineExaminationSystemModel.Questions_Result)" />
+    <FunctionImport Name="ddlSubject" ReturnType="Collection(OnlineExaminationSystemModel.ddlSubject_Result)" />
+    <FunctionImport Name="spSubject" ReturnType="Collection(OnlineExaminationSystemModel.spSubject_Result)" />
+    <FunctionImport Name="DeleteClass1">
+      <Parameter Name="classId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="removeClass">
+      <Parameter Name="classId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stdsubject" ReturnType="Collection(String)">
+      <Parameter Name="subjctID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="getSbjs" ReturnType="Collection(OnlineExaminationSystemModel.getSbjs_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="QuestionPaper" ReturnType="Collection(OnlineExaminationSystemModel.QuestionPaper_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="getUserName" ReturnType="Collection(OnlineExaminationSystemModel.getUserName_Result)">
+      <Parameter Name="loginId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="tblfinalResults" EntityType="OnlineExaminationSystemModel.tblfinalResult" />
+    <FunctionImport Name="getResult" ReturnType="Collection(OnlineExaminationSystemModel.getResult_Result)" />
+    <FunctionImport Name="aminlogin" ReturnType="Collection(OnlineExaminationSystemModel.aminlogin_Result)" />
+    <FunctionImport Name="Searchsubject" ReturnType="Collection(OnlineExaminationSystemModel.Searchsubject_Result)">
+      <Parameter Name="subjectName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Searchsubjectpaper" ReturnType="Collection(OnlineExaminationSystemModel.Searchsubjectpaper_Result)">
+      <Parameter Name="subjectName" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="DoSignUP_Result">
+    <Property Type="Int32" Name="LoginID" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="Pasword" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="EmailAdress" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="ClassID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Login_Result">
+    <Property Type="Int32" Name="LoginID" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="Pasword" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="EmailAdress" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="ClassID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SPLogin_Result">
+    <Property Type="Int32" Name="LoginID" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="Pasword" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="EmailAdress" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="ClassID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spQuestions_Result">
+    <Property Type="Int32" Name="QuestionID" Nullable="false" />
+    <Property Type="String" Name="subj" Nullable="false" />
+    <Property Type="String" Name="Questions" Nullable="false" />
+    <Property Type="String" Name="opt1" Nullable="false" />
+    <Property Type="String" Name="opt2" Nullable="false" />
+    <Property Type="String" Name="opt3" Nullable="false" />
+    <Property Type="String" Name="opt4" Nullable="false" />
+    <Property Type="String" Name="Ans" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="getClass_Result">
+    <Property Type="Int32" Name="ClassID" Nullable="false" />
+    <Property Type="String" Name="ClassName" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="tblSubject">
+    <Key>
+      <PropertyRef Name="SubjectID" />
+    </Key>
+    <Property Name="SubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ClassID" Type="Int32" />
+    <NavigationProperty Name="tblClass" Relationship="OnlineExaminationSystemModel.FK_tblSubject_tblClass" FromRole="tblSubject" ToRole="tblClass" />
+    <NavigationProperty Name="tblQuestions" Relationship="OnlineExaminationSystemModel.FK_tblQuestion_tblSubject" FromRole="tblSubject" ToRole="tblQuestion1" />
+  </EntityType>
+  <Association Name="FK_tblSubject_tblClass">
+    <End Type="OnlineExaminationSystemModel.tblClass" Role="tblClass" Multiplicity="0..1" />
+    <End Type="OnlineExaminationSystemModel.tblSubject" Role="tblSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblClass">
+        <PropertyRef Name="ClassID" />
+      </Principal>
+      <Dependent Role="tblSubject">
+        <PropertyRef Name="ClassID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="GetSubject_Result">
+    <Property Type="Int32" Name="SubjectID" Nullable="false" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="ClassID" Nullable="false" />
+    <Property Type="String" Name="ClassName" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="SearchClass_Result">
+    <Property Type="Int32" Name="ClassID" Nullable="false" />
+    <Property Type="String" Name="ClassName" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="deleteSubject_Result">
+    <Property Type="Int32" Name="SubjectID" Nullable="false" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="ClassID" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="tblQuestion">
+    <Key>
+      <PropertyRef Name="QuestionID" />
+    </Key>
+    <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Questions" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="opt1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="opt2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="opt3" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="opt4" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Answer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="classID" Type="Int32" />
+    <Property Name="SubjectID" Type="Int32" />
+    <NavigationProperty Name="tblClass" Relationship="OnlineExaminationSystemModel.FK_tblQuestion_tblClass" FromRole="tblQuestion1" ToRole="tblClass" />
+    <NavigationProperty Name="tblSubject" Relationship="OnlineExaminationSystemModel.FK_tblQuestion_tblSubject" FromRole="tblQuestion1" ToRole="tblSubject" />
+  </EntityType>
+  <ComplexType Name="GetQuestions_Result">
+    <Property Type="Int32" Name="QuestionID" Nullable="false" />
+    <Property Type="String" Name="Questions" Nullable="false" />
+    <Property Type="String" Name="opt1" Nullable="false" />
+    <Property Type="String" Name="opt2" Nullable="false" />
+    <Property Type="String" Name="opt3" Nullable="false" />
+    <Property Type="String" Name="opt4" Nullable="false" />
+    <Property Type="Int32" Name="classID" Nullable="true" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="SubjectID" Nullable="true" />
+    <Property Type="String" Name="subjectName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Answer" Nullable="false" />
+  </ComplexType>
+  <Association Name="FK_tblQuestion_tblClass">
+    <End Type="OnlineExaminationSystemModel.tblClass" Role="tblClass" Multiplicity="0..1" />
+    <End Type="OnlineExaminationSystemModel.tblQuestion" Role="tblQuestion1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblClass">
+        <PropertyRef Name="ClassID" />
+      </Principal>
+      <Dependent Role="tblQuestion1">
+        <PropertyRef Name="classID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblQuestion_tblSubject">
+    <End Type="OnlineExaminationSystemModel.tblSubject" Role="tblSubject" Multiplicity="0..1" />
+    <End Type="OnlineExaminationSystemModel.tblQuestion" Role="tblQuestion1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSubject">
+        <PropertyRef Name="SubjectID" />
+      </Principal>
+      <Dependent Role="tblQuestion1">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="GetQuestions_Result1">
+    <Property Type="Int32" Name="QuestionID" Nullable="false" />
+    <Property Type="String" Name="Questions" Nullable="false" />
+    <Property Type="String" Name="opt1" Nullable="false" />
+    <Property Type="String" Name="opt2" Nullable="false" />
+    <Property Type="String" Name="opt3" Nullable="false" />
+    <Property Type="String" Name="opt4" Nullable="false" />
+    <Property Type="String" Name="Answer" Nullable="false" />
+    <Property Type="Int32" Name="classID" Nullable="true" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="SubjectID" Nullable="true" />
+    <Property Type="String" Name="subjectName" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetQuestions_Result2">
+    <Property Type="Int32" Name="QuestionID" Nullable="false" />
+    <Property Type="String" Name="Questions" Nullable="false" />
+    <Property Type="String" Name="opt1" Nullable="false" />
+    <Property Type="String" Name="opt2" Nullable="false" />
+    <Property Type="String" Name="opt3" Nullable="false" />
+    <Property Type="String" Name="opt4" Nullable="false" />
+    <Property Type="String" Name="Answer" Nullable="false" />
+    <Property Type="Int32" Name="classID" Nullable="true" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="SubjectID" Nullable="true" />
+    <Property Type="String" Name="subjectName" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="Questions_Result">
+    <Property Type="Int32" Name="QuestionID" Nullable="false" />
+    <Property Type="String" Name="Questions" Nullable="false" />
+    <Property Type="String" Name="opt1" Nullable="false" />
+    <Property Type="String" Name="opt2" Nullable="false" />
+    <Property Type="String" Name="opt3" Nullable="false" />
+    <Property Type="String" Name="opt4" Nullable="false" />
+    <Property Type="String" Name="Answer" Nullable="false" />
+    <Property Type="Int32" Name="classID" Nullable="true" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="SubjectID" Nullable="true" />
+    <Property Type="String" Name="subjectName" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="ddlSubject_Result">
+    <Property Type="Int32" Name="SubjectID" Nullable="false" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="ClassID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spSubject_Result">
+    <Property Type="Int32" Name="SubjectID" Nullable="false" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="getSbjs_Result">
+    <Property Type="Int32" Name="SubjectID" Nullable="false" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="ClassID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="QuestionPaper_Result">
+    <Property Type="Int32" Name="QuestionID" Nullable="false" />
+    <Property Type="String" Name="Questions" Nullable="false" />
+    <Property Type="String" Name="opt1" Nullable="false" />
+    <Property Type="String" Name="opt2" Nullable="false" />
+    <Property Type="String" Name="opt3" Nullable="false" />
+    <Property Type="String" Name="opt4" Nullable="false" />
+    <Property Type="String" Name="Answer" Nullable="false" />
+    <Property Type="Int32" Name="classID" Nullable="true" />
+    <Property Type="Int32" Name="SubjectID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="getUserName_Result">
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="25" />
+  </ComplexType>
+  <EntityType Name="tblfinalResult">
+    <Key>
+      <PropertyRef Name="ResultID" />
+    </Key>
+    <Property Name="ResultID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Score" Type="Int32" Nullable="false" />
+    <Property Name="SubjctName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserFirstName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="UserLastName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <ComplexType Name="getResult_Result">
+    <Property Type="Int32" Name="ResultID" Nullable="false" />
+    <Property Type="Int32" Name="Score" Nullable="false" />
+    <Property Type="String" Name="SubjctName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="UserFirstName" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="UserLastName" Nullable="false" MaxLength="25" />
+    <Property Type="DateTime" Name="Date" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="aminlogin_Result">
+    <Property Type="Int32" Name="LoginID" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="Pasword" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="EmailAdress" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="ClassID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Searchsubject_Result">
+    <Property Type="Int32" Name="QuestionID" Nullable="false" />
+    <Property Type="String" Name="Questions" Nullable="false" />
+    <Property Type="String" Name="opt1" Nullable="false" />
+    <Property Type="String" Name="opt2" Nullable="false" />
+    <Property Type="String" Name="opt3" Nullable="false" />
+    <Property Type="String" Name="opt4" Nullable="false" />
+    <Property Type="String" Name="Answer" Nullable="false" />
+    <Property Type="Int32" Name="classID" Nullable="true" />
+    <Property Type="Int32" Name="SubjectID" Nullable="true" />
+    <Property Type="Int32" Name="SubjectID1" Nullable="false" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="Searchsubjectpaper_Result">
+    <Property Type="Int32" Name="QuestionID" Nullable="false" />
+    <Property Type="String" Name="Questions" Nullable="false" />
+    <Property Type="String" Name="opt1" Nullable="false" />
+    <Property Type="String" Name="opt2" Nullable="false" />
+    <Property Type="String" Name="opt3" Nullable="false" />
+    <Property Type="String" Name="opt4" Nullable="false" />
+    <Property Type="String" Name="Answer" Nullable="false" />
+    <Property Type="Int32" Name="classID" Nullable="true" />
+    <Property Type="Int32" Name="SubjectID" Nullable="true" />
+    <Property Type="Int32" Name="SubjectID1" Nullable="false" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+  </ComplexType>
+</Schema>

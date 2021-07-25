@@ -1,0 +1,165 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminMasterPage.master.cs" Inherits="ExaminationSystem.AdminMasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="css/StyleSheet1.css" rel="stylesheet" />
+    <style>
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+}
+#name {
+    font-size: x-large;
+    color: Black;
+    font-family: Segoe Print;
+}
+
+.top-bar {
+    background-color:#00264d;
+    
+}
+
+
+
+#logoimg {
+    width: 40px;
+    height: 40px;
+ 
+}
+
+.h {
+    float: left;
+}
+
+
+
+p {
+   
+    text-align: center;
+    text-decoration: none;
+}
+
+   
+
+.rightpannel 1 {
+    color: white;
+    float: left;
+    height:150px;
+}
+
+.rightpannel 2 {
+    color: white;
+    float: right;
+}
+
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color:#00264d;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  background-color:#263f40;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #5ead83;
+  color: white;
+  text-decoration:none;
+}
+
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+ 
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+ 
+}
+</style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container-fluid">
+          
+                 <header id="header" style="margin-top:-50px">
+    <div class="top-bar">
+    
+    <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="h">
+         
+    </div> &nbsp;&nbsp;&nbsp;
+   <div class="h">
+    <p id ="name" style="color:white; padding:10px;"> Online Examination System</p>
+     </div><%--/h--%>
+    
+    </div><%--/logo and img col--%>
+     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+         <p style="text-align:end; padding:10px;margin-right:15px;">
+          <a href="logout.aspx"  style="color:white; text-decoration:none;font-size:20px;">Logout</a>
+      </p>
+      
+
+            
+      </div><%--/social media col--%>
+    </div>
+
+    
+    </div><%--/topbar--%>
+       </header>
+
+            
+        <div class="sidebar">
+  <a href="Dashboard.aspx" >Dashboard</a>
+   <a  href="Questions.aspx">Questions</a>
+  
+  <a href="Result.aspx">Result</a>
+ <a href="Subject.aspx">Subject</a>
+  <a href="AdminCategory.aspx">Class</a>
+
+            <a href="logout.aspx">Logout</a>
+</div>
+      </div> 
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+       
+    </form>
+</body>
+</html>
